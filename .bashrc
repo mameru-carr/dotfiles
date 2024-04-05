@@ -123,7 +123,9 @@ export NVM_DIR="$HOME/.nvm"
 ########################
 # Personal Alias'
 ########################
+# Disk Usage
 alias du='du -h --max-depth=1'
+# Install lsd from "https://github.com/lsd-rs/lsd"
 alias ls='lsd'
 
 #########################
