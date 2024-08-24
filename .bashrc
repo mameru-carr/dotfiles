@@ -128,6 +128,9 @@ alias du='du -h --max-depth=1'
 # Install lsd from "https://github.com/lsd-rs/lsd"
 alias ls='lsd'
 
+# Cool
+alias please='sudo'
+
 #########################
 # Bash Prompt
 #########################
@@ -183,6 +186,9 @@ function set_bash_prompt () {
         RED="\[\033[0;31m\]"
         VIOLET='\[\033[01;35m\]'
 
+	USERNAME_COLOR=$GREEN
+	MY_PATH_COLOR=$MAGENTA
+
         local __git_branch_color="$GREEN"
         local __git_branch=$(__git_ps1 "%s");
 
@@ -209,13 +215,14 @@ function set_bash_prompt () {
 		PATH_COLOR=${COLOR_PATH_ERR}
 	fi
         # Set the PS1 to be "[username:workingdirectory] (__git_ps1)"
-        PS1="${COLOR_DIVIDER} ${SKELETON} [${COLOR_USERNAME}\u${COLOR_DIVIDER} : ${COLOR_DIVIDER}${PATH_COLOR}\w${COLOR_DIVIDER}]"
+        PS1="${COLOR_DIVIDER} ${SKELETON} [${USERNAME_COLOR}\u${COLOR_DIVIDER} : ${COLOR_DIVIDER}${MY_PATH_COLOR}\w${COLOR_DIVIDER}]"
 
         PS1="${PS1} ${TIBETIAN_MARK} ${GIT}"
 
+
         # Add Python VirtualEnv portion of the prompt, this adds "(venvname)"
 	if ! test -z "$VIRTUAL_ENV" ; then
-                PS1="${PS1} ${COLOR_DIVIDER}${COLOR_VENV}`basename \"$VIRTUAL_ENV\"`${COLOR_DIVIDER}"
+		PS1="${PS1} (${COLOR_DIVIDER}${COLOR_VENV}`basename \"$VIRTUAL_ENV\"`${COLOR_DIVIDER})"
 	fi
 	# Close out the prompt, this adds "]\n[username@hostname] "
         PS1="${PS1}\n ${ANCHOR} "
@@ -237,4 +244,23 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 export PROMPT_COMMAND=set_bash_prompt
 
+# Diff-So-Fancy - Fancy Git Diff Output
+# https://github.com/so-fancy/diff-so-fancy?tab=readme-ov-file
+DIFF_SO_FANCY=~/.bash/diff-so-fancy/diff-so-fancy
+export PATH=$PATH:$DIFF_SO_FANCY
+
+
+# fzf - Command Line Fuzzy Finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# dotnet
+export PATH="~/.dotnet:$PATH"
+# Add .NET Core SDK tools
+export PATH="$PATH:/home/phoenix/.dotnet/tools"
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
